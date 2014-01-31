@@ -343,7 +343,7 @@ def select_image (create=False, defname='', uuid=None) :
         if imglist :
             idescr = [(i, imginfo(i)['date'], convdate(imginfo(i)['date'])) for i in imglist]
             idescr.sort(key=lambda i: i[1], reverse=True)
-            menu = [(str(n+1), '%s | %s' % (i[2], i[0]))
+            menu = [(str(n+1), '%s | %s' % (i[0], i[2]))
                     for n, i in enumerate(idescr)]
             if create : menu = [('0', _("new image"))] + menu
             text = _("Please choose an image")
