@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: windump\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-31 20:51+0100\n"
+"POT-Creation-Date: 2014-01-31 22:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -168,15 +168,19 @@ msgstr "OK"
 msgid "DELETE"
 msgstr "SUPPRIMER"
 
-#: windump.py:534
+#: windump.py:533
+msgid "This image is locked and cannot be deleted"
+msgstr ""
+
+#: windump.py:536
 msgid "WARNING: DO YOU REALLY WANT TO DELETE THIS IMAGE ?\n"
 msgstr "ATTENTION: VOULEZ VOUS VRAIMENT SUPPRIMER CETTE IMAGE ?\n"
 
-#: windump.py:535
+#: windump.py:537
 msgid "(THIS OPERATION IS UNDOABLE)"
 msgstr "(CETTE OPERATION EST IRREVERSIBLE)"
 
-#: windump.py:543
+#: windump.py:545
 #, python-format
 msgid "Image %(i)s deleted"
 msgstr "Image %(i)s supprimée"
@@ -195,22 +199,22 @@ msgstr ""
 msgid "finished - press enter"
 msgstr "terminé - appuyez sur entrée"
 
-#: windump.py:610
+#: windump.py:612
 msgid "What do you want to do ?"
 msgstr "Que souhaitez vous faire ?"
 
-#: windump.py:611
+#: windump.py:613
 msgid "Restore a backup"
 msgstr "Restaurer une sauvegarde"
 
-#: windump.py:612
+#: windump.py:614
 msgid "Backup a partition"
 msgstr "Sauvegarder une partition"
 
-#: windump.py:613
+#: windump.py:615
 msgid "Inspect existing backups"
 msgstr "Inspecter les sauvegardes existantes"
 
-#: windump.py:614
+#: windump.py:616
 msgid "Quit"
 msgstr "Quitter"

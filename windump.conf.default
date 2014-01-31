@@ -1,4 +1,7 @@
 {
 	"REM": "put uuids you never want to see here",
-	"blacklist": []
+	"blacklist": [],
+
+	"REM": "put images which should _never_ be deleted",
+	"locked": [],
 }

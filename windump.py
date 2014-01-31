@@ -527,22 +527,22 @@ def proc_inspect () :
             while True :
                 r, out = dlg_yesno(text=text, extra=['--yes-label', _("OK"),
                                                      '--no-label', _("DELETE")])
-                if r == 0 :
+                if r != 1 :
                     break
-                elif r == 1 :
-                    warn = text + \
-                      _("WARNING: DO YOU REALLY WANT TO DELETE THIS IMAGE ?\n") + \
-                      _("(THIS OPERATION IS UNDOABLE)")
-                    r, out = dlg_yesno(text=warn, extra=['--defaultno'])
-                    if r == 0 :
-                        # do it atomically
-                        tmpdir = os.path.join(TMPDIR, imgname)
-                        if os.path.exists(tmpdir) : shutil.rmtree(tmpdir)
-                        os.rename(os.path.join(IMGDIR, imgname), tmpdir)
-                        shutil.rmtree(tmpdir)
-                        dlg_msgbox(_("Image %(i)s deleted") % {'i': imgname})
-                        break
-                else :
+                if imgname in LOCKED :
+                    dlg_msgbox(_("This image is locked and cannot be deleted"))
+                    continue
+                warn = text + \
+                  _("WARNING: DO YOU REALLY WANT TO DELETE THIS IMAGE ?\n") + \
+                  _("(THIS OPERATION IS UNDOABLE)")
+                r, out = dlg_yesno(text=warn, extra=['--defaultno'])
+                if r == 0 :
+                    # do it atomically
+                    tmpdir = os.path.join(TMPDIR, imgname)
+                    if os.path.exists(tmpdir) : shutil.rmtree(tmpdir)
+                    os.rename(os.path.join(IMGDIR, imgname), tmpdir)
+                    shutil.rmtree(tmpdir)
+                    dlg_msgbox(_("Image %(i)s deleted") % {'i': imgname})
                     break
 
 
@@ -585,7 +585,7 @@ def _main () :
 # real_main:
 #
 def real_main () :
-    global BLACKLIST, COMPRESS, VOLUME
+    global BLACKLIST, LOCKED, COMPRESS, VOLUME
 
     # create some dirs
     if os.path.exists(TMPDIR) :
@@ -603,6 +603,8 @@ def real_main () :
         config = {}
     BLACKLIST = config.get('blacklist', ())
     trace("blacklist: %s" % ', '.join(BLACKLIST))
+    LOCKED = config.get('locked', ())
+    trace("locked images: %s" % ', '.join(LOCKED))
     COMPRESS = int(config.get('compress', '2'))
     VOLUME = int(config.get('volume', str(4*1024)))
         
