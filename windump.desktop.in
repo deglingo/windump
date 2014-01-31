@@ -1,0 +1,11 @@
+# -*- encoding:utf-8 -*-
+[Desktop Entry]
+Name=Windump
+Name[fr]=Windump
+Comment=Dump/restore full partitions
+Comment[fr]=Sauvegarder et restaurer des partitions entières
+Exec=xfce4-terminal --hide-menubar --hide-toolbar -T @PACKAGE@ -x sudo @SBINDIR@/windump
+Icon=computer
+Terminal=false
+Type=Application
+StartupNotify=true
