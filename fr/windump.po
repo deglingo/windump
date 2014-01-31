@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: windump\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-31 18:24+0100\n"
+"POT-Creation-Date: 2014-01-31 19:47+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,129 +17,129 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: windump.py:137 windump.py:171 windump.py:227
+#: windump.py:143 windump.py:177 windump.py:233
 msgid "ERROR"
 msgstr "ERREUR"
 
-#: windump.py:137
+#: windump.py:143
 #, python-format
 msgid "could not unmount device '%(dev)s'"
 msgstr "impossible de démonter le périphérique '%(dev)s'"
 
-#: windump.py:139
+#: windump.py:145
 msgid "close any application using it and try again"
 msgstr "fermez toues les applications qui l'utilisent et réessayez"
 
-#: windump.py:140
+#: windump.py:146
 msgid "if it does not help, try to restart the computer"
 msgstr "si le problème persiste, redémarrez l'ordinateur"
 
-#: windump.py:171
+#: windump.py:177
 #, python-format
 msgid "could not remount device '%(dev)s'"
 msgstr "impossible de remonter le périphérique '%(dev)s'"
 
-#: windump.py:267
+#: windump.py:273
 msgid "DEV"
 msgstr "PARTITION"
 
-#: windump.py:268
+#: windump.py:274
 msgid "LABEL"
 msgstr "ETIQUETTE"
 
-#: windump.py:269
+#: windump.py:275
 msgid "UUID"
 msgstr "UUID"
 
-#: windump.py:305
+#: windump.py:311
 msgid "No device found"
 msgstr "Aucune partition trouvée"
 
-#: windump.py:308
+#: windump.py:314
 msgid "Please choose a partition"
 msgstr "Veuillez choisir une partition"
 
-#: windump.py:340
+#: windump.py:348
 msgid "new image"
 msgstr "nouvelle image"
 
-#: windump.py:341
+#: windump.py:349
 msgid "Please choose an image"
 msgstr "Veuillez choisir une image"
 
-#: windump.py:349
+#: windump.py:357
 msgid "No image found"
 msgstr "Aucune image trouvée"
 
-#: windump.py:351
+#: windump.py:359
 msgid "Choose a name for this backup"
 msgstr "Veuillez choisir un nom pour cette image"
 
-#: windump.py:372
+#: windump.py:380
 msgid "WARNING: THIS IMAGE ALREADY EXISTS AND WILL BE OVERWRITTEN BY THIS ONE!"
 msgstr ""
 "ATTENTION: CETTE IMAGE EXISTE DEJA EST SERA ECRASEE PAR CETTE OPERATION!"
 
-#: windump.py:374
+#: windump.py:382
 msgid "(New image)"
 msgstr "(Nouvelle image)"
 
-#: windump.py:376 windump.py:445
+#: windump.py:384 windump.py:451
 #, python-format
 msgid "IMAGE: %(img)s"
 msgstr ""
 
-#: windump.py:378 windump.py:447
+#: windump.py:386 windump.py:453
 msgid "Do you want to continue ?"
 msgstr "Voulez-vous continuer ?"
 
-#: windump.py:413
+#: windump.py:419
 #, python-format
 msgid "Image '%(i)s' created succesfully"
 msgstr "Image '%(i)s' créée avec succès"
 
-#: windump.py:416
+#: windump.py:422
 msgid "Image creation failed!"
 msgstr "La création de l'image a échoué!"
 
-#: windump.py:425 windump.py:486
+#: windump.py:431 windump.py:492
 msgid "No backup found"
 msgstr "Aucune image trouvée"
 
-#: windump.py:428 windump.py:488
+#: windump.py:434 windump.py:494
 msgid "<none>"
 msgstr "<aucun>"
 
-#: windump.py:434
+#: windump.py:440
 #, python-format
 msgid "Device '%(uuid)s' is not present"
 msgstr "Le périphérique '%(uuid)s' est absent"
 
-#: windump.py:446
+#: windump.py:452
 msgid "WARNING: THIS OPERATION WILL ERASE ALL DATAS ON THIS PARTITION!"
 msgstr ""
 "ATTENTION: CETTE OPERATION ECRASERA TOUTES LES DONNEES DE LA PARTITION!"
 
-#: windump.py:474
+#: windump.py:480
 msgid "Image restore succesfully!"
 msgstr "Image restaurée avec succès"
 
-#: windump.py:477
+#: windump.py:483
 #, python-format
 msgid "Image restore failed! (%(r)s)"
 msgstr "La restauration a échoué! (%(r)s)"
 
-#: windump.py:503
+#: windump.py:509
 #, python-format
 msgid "IMAGE: %(img)s (%(size)s)\n"
 msgstr ""
 
-#: windump.py:504
+#: windump.py:510
 #, python-format
 msgid "DATE:  %(date)s\n"
 msgstr ""
 
-#: windump.py:505
+#: windump.py:511
 #, python-format
 msgid ""
 "FILE:  %(fname)s\n"
@@ -148,35 +148,35 @@ msgstr ""
 "FICHIER: %(fname)s\n"
 "\n"
 
-#: windump.py:506
+#: windump.py:512
 #, python-format
 msgid ""
 "%(devinfo)s\n"
 "\n"
 msgstr ""
 
-#: windump.py:508
+#: windump.py:514
 msgid "OK"
 msgstr "OK"
 
-#: windump.py:509
+#: windump.py:515
 msgid "DELETE"
 msgstr "SUPPRIMER"
 
-#: windump.py:514
+#: windump.py:520
 msgid "WARNING: DO YOU REALLY WANT TO DELETE THIS IMAGE ?\n"
 msgstr "ATTENTION: VOULEZ VOUS VRAIMENT SUPPRIMER CETTE IMAGE ?\n"
 
-#: windump.py:515
+#: windump.py:521
 msgid "(THIS OPERATION IS UNDOABLE)"
 msgstr "(CETTE OPERATION EST IRREVERSIBLE)"
 
-#: windump.py:523
+#: windump.py:529
 #, python-format
 msgid "Image %(i)s deleted"
 msgstr "Image %(i)s supprimée"
 
-#: windump.py:557
+#: windump.py:563
 #, python-format
 msgid ""
 "Sorry, an error occured (%(r)s).\n"
@@ -186,26 +186,26 @@ msgstr ""
 "ERREUR\n"
 "\n"
 
-#: windump.py:561
+#: windump.py:567
 msgid "finished - press enter"
 msgstr "terminé - appuyez sur entrée"
 
-#: windump.py:590
+#: windump.py:596
 msgid "What do you want to do ?"
 msgstr "Que souhaitez vous faire ?"
 
-#: windump.py:591
+#: windump.py:597
 msgid "Restore a backup"
 msgstr "Restaurer une sauvegarde"
 
-#: windump.py:592
+#: windump.py:598
 msgid "Backup a partition"
 msgstr "Sauvegarder une partition"
 
-#: windump.py:593
+#: windump.py:599
 msgid "Inspect existing backups"
 msgstr "Inspecter les sauvegardes existantes"
 
-#: windump.py:594
+#: windump.py:600
 msgid "Quit"
 msgstr "Quitter"

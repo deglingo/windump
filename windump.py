@@ -55,6 +55,12 @@ def trace (msg) :
     sys.stderr.flush()
 
 
+# convdate:
+#
+def convdate (dt) :
+    return time.strftime('%c', time.strptime(dt, '%Y/%m/%d %H:%M:%S'))
+
+
 # screen_reset:
 #
 def screen_reset () :
@@ -335,15 +341,17 @@ def select_image (create=False, defname='', uuid=None) :
     imgname = ''
     while not imgname :
         if imglist :
-            imglist.sort(reverse=True)
-            menu = [(str(n+1), i) for n, i in enumerate(imglist)]
+            idescr = [(i, imginfo(i)['date'], convdate(imginfo(i)['date'])) for i in imglist]
+            idescr.sort(key=lambda i: i[1], reverse=True)
+            menu = [(str(n+1), '%s | %s' % (i[2], i[0]))
+                    for n, i in enumerate(idescr)]
             if create : menu = [('0', _("new image"))] + menu
             text = _("Please choose an image")
             r, out = dlg_menu(text=text, menu=menu)
             if r != 0 : return ''
             out = int(out) - 1
             if out >= 0 :
-                imgname = imglist[out]
+                imgname = idescr[out][0]
         if not imgname :
             if not create :
                 dlg_msgbox(_("No image found"))
@@ -362,7 +370,7 @@ def proc_backup () :
     dev = select_device()
     if not dev : return
     # choose an image name
-    defname = '%s_%s_%s' % (dev[1], dev[2], time.strftime('%Y-%m-%d-%H%M%S'))
+    defname = '%s_' % (dev[1] if dev[1] else dev[2])
     imgname = select_image(create=True, defname=defname, uuid=dev[2])
     if not imgname : return
     
@@ -384,8 +392,6 @@ def proc_backup () :
     tmpdir = os.path.join(TMPDIR, imgname)
     assert not os.path.exists(tmpdir), tmpdir
     _mkdir(tmpdir)
-    # [removem] write uuid
-    open(os.path.join(tmpdir, 'uuid'), 'wt').write('%s' % dev[2])
     # write infos
     json.dump({'uuid': dev[2], 'label': dev[1],
                'date': time.strftime('%Y/%m/%d %H:%M:%S')},
