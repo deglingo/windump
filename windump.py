@@ -4,7 +4,7 @@ import sys, os, subprocess, codecs, signal, shutil, time, json, gettext, traceba
 
 
 # Config
-DEBUG = False
+DEBUG = bool(os.environ.get('DEBUG', ''))
 
 PACKAGE = '@PACKAGE@'
 SYSCONFDIR = '@SYSCONFDIR@'
@@ -370,25 +370,20 @@ def proc_backup () :
     dev = select_device()
     if not dev : return
     # choose an image name
-    defname = '%s_' % (dev[1] if dev[1] else dev[2])
+    n = 1
+    while True :
+        sfx = '_%03d' % n
+        defname = '%s%s' % ((dev[1] if dev[1] else dev[2]), sfx)
+        if not os.path.exists(os.path.join(IMGDIR, defname)) :
+            break
+        n += 1
     imgname = select_image(create=True, defname=defname, uuid=dev[2])
     if not imgname : return
-    
-    # check existing and ask confirmation
     imgdir = os.path.join(IMGDIR, imgname)
-    if os.path.exists(imgdir) :
-        warn = _("WARNING: THIS IMAGE ALREADY EXISTS AND WILL BE OVERWRITTEN BY THIS ONE!")
-    else :
-        warn = _("(New image)")
-    text = (devinfo(dev) + "\n\n" +
-            _("IMAGE: %(img)s") + "\n\n" +
-            "%(warn)s\n\n" +
-            _("Do you want to continue ?")) \
-            % {'img': imgname, 'warn': warn}
-    r, out = dlg_yesno(text=text, extra=['--defaultno'])
-    if r != 0 : return
-
-    # go
+    # check if the image already exists and ask confirmation
+    if confirm_backup(dev, imgname) != 0 :
+        return
+    # create a temp dir to work
     tmpdir = os.path.join(TMPDIR, imgname)
     assert not os.path.exists(tmpdir), tmpdir
     _mkdir(tmpdir)
@@ -401,17 +396,18 @@ def proc_backup () :
     cmd = ['/usr/sbin/partimage', '--batch', '--compress=%d' % COMPRESS,
            '--volume=%s' % VOLUME, '--nodesc', '--finish=0',
            'save', dev[0], tmpfile]
-
-    # umount if needed
+    # unmount device
     if not umount(dev[0]) :
         return
+    # run
     try:
         trace("> %s" % ' '.join(cmd))
         proc = subprocess.Popen(cmd)
         r = proc.wait()
+        trace("r: %s" % r)
     finally:
         mount(dev[0])
-    trace("R: %s" % r)
+    # final cleanup
     if r == 0 :
         if os.path.exists(imgdir) :
             shutil.rmtree(imgdir)
@@ -420,6 +416,24 @@ def proc_backup () :
     else :
         shutil.rmtree(tmpdir)
         dlg_error(_("Image creation failed!"))
+
+
+# confirm_backup:
+#
+def confirm_backup (dev, imgname) :
+    imgdir = os.path.join(IMGDIR, imgname)
+    if os.path.exists(imgdir) :
+        warn = _("WARNING") + ": " + \
+          _("THIS IMAGE ALREADY EXISTS AND WILL BE OVERWRITTEN BY THIS ONE!")
+    else :
+        warn = _("(New image)")
+    text = (devinfo(dev) + "\n\n" +
+            _("IMAGE: %(img)s") + "\n\n" +
+            warn + "\n\n" +
+            _("Do you want to continue ?")) \
+            % {'img': imgname}
+    r, out = dlg_yesno(text=text, extra=['--defaultno'])
+    return r
 
 
 # proc_restore:
