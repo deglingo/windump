@@ -70,7 +70,7 @@ install: all
 	test -d "$(pkgvardir)" || mkdir -vp "$(pkgvardir)"
 	install -m755 -T "$(PACKAGE)" "$(sbindir)/$(PACKAGE)"
 	test -f "$(sysconfdir)/$(PACKAGE).conf" || \
-		install -m644 -T "$(PACKAGE).conf" "$(sysconfdir)/$(PACKAGE).conf"
+		install -m644 -T "$(PACKAGE).conf.default" "$(sysconfdir)/$(PACKAGE).conf"
 	for lang in $(LANGLIST); do \
 		modir="$(localedir)/$$lang/LC_MESSAGES"; \
 		test -d "$$modir" || mkdir -vp "$$modir"; \
