@@ -4,11 +4,6 @@ LANGLIST = fr
 
 PACKAGE = windump
 
-# comment to disable
-DESKTOP_ICON = $(PACKAGE).desktop
-# [fixme] how to get it correctly ?
-DESKTOP = $(HOME)/Bureau
-
 prefix = /usr/local
 sbindir = $(prefix)/sbin
 sysconfdir = $(prefix)/etc
@@ -20,7 +15,9 @@ pkgvardir = $(vardir)/$(PACKAGE)
 POFILES = $(LANGLIST:%=%/$(PACKAGE).po)
 MOFILES = $(LANGLIST:%=%/$(PACKAGE).mo)
 
-all: $(PACKAGE) $(POFILES) $(MOFILES) $(DESKTOP_ICON)
+DESKTOP_LAUNCHER = $(PACKAGE).desktop
+
+all: $(PACKAGE) $(POFILES) $(MOFILES)
 
 $(PACKAGE): $(PACKAGE).py conf.sed
 	sed -f conf.sed <$< >$@.tmp
@@ -33,10 +30,6 @@ conf.sed: Makefile
 		echo "s,@LOCALEDIR@,$(localedir),g"; \
 		echo "s,@PKGVARDIR@,$(pkgvardir),g"; \
 	) >$@.tmp
-	mv -f $@.tmp $@
-
-%.desktop: %.desktop.in conf.sed
-	sed -f conf.sed <$< >$@.tmp
 	mv -f $@.tmp $@
 
 %.mo: %.po
@@ -76,4 +69,16 @@ install: all
 		test -d "$$modir" || mkdir -vp "$$modir"; \
 		install -m644 -T "$$lang/$(PACKAGE).mo" "$$modir/$(PACKAGE).mo"; \
 	done
-	test x"$(DESKTOP_ICON)" = x || install -m755 "$(DESKTOP_ICON)" "$(DESKTOP)"
+
+# usage: `make install-icon DESKTOP=<DESKTOP-DIR>'
+.PHONY: install-icon
+
+install-icon: $(DESKTOP_LAUNCHER)
+	test -d "$(DESKTOP)" || { \
+		echo "E: DESKTOP is not set (try \`make install-icon DESKTOP=<DESKTOP-DIR>')" >&2; \
+		exit 1; }
+	install -m755 "$(DESKTOP_LAUNCHER)" "$(DESKTOP)"
+
+%.desktop: %.desktop.in conf.sed
+	sed -f conf.sed <$< >$@.tmp
+	mv -f $@.tmp $@
