@@ -89,7 +89,6 @@ msgid "WARNING"
 msgstr ""
 
 #: windump.py:427
-#, fuzzy
 msgid "THIS IMAGE ALREADY EXISTS AND WILL BE OVERWRITTEN BY THIS ONE!"
 msgstr ""
 "ATTENTION: CETTE IMAGE EXISTE DEJA EST SERA ECRASEE PAR CETTE OPERATION!"
@@ -170,7 +169,7 @@ msgstr "SUPPRIMER"
 
 #: windump.py:533
 msgid "This image is locked and cannot be deleted"
-msgstr ""
+msgstr "Cette image est vérouillée et ne peut être supprimée"
 
 #: windump.py:536
 msgid "WARNING: DO YOU REALLY WANT TO DELETE THIS IMAGE ?\n"
