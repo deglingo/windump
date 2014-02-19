@@ -17,6 +17,8 @@ MOFILES = $(LANGLIST:%=%/$(PACKAGE).mo)
 
 DESKTOP_LAUNCHER = $(PACKAGE).desktop
 
+.PHONY: all install install-icon
+
 all: $(PACKAGE) $(POFILES) $(MOFILES)
 
 $(PACKAGE): $(PACKAGE).py conf.sed
@@ -70,14 +72,17 @@ install: all
 		install -m644 -T "$$lang/$(PACKAGE).mo" "$$modir/$(PACKAGE).mo"; \
 	done
 
-# usage: `make install-icon DESKTOP=<DESKTOP-DIR>'
-.PHONY: install-icon
-
+# usage: `sudo make install-icon USER=<USERNAME>'
 install-icon: $(DESKTOP_LAUNCHER)
-	test -d "$(DESKTOP)" || { \
-		echo "E: DESKTOP is not set (try \`make install-icon DESKTOP=<DESKTOP-DIR>')" >&2; \
+	test x"$(USER)" != x || { \
+		echo "E: USER not set" >&2; \
 		exit 1; }
-	install -m755 "$(DESKTOP_LAUNCHER)" "$(DESKTOP)"
+	desk="`su $(USER) -c 'xdg-user-dir DESKTOP'`"; \
+	test -d "$$desk" || { \
+		echo "E: $(USER)'s desktop is not a directory: '$$desk'" >&2; \
+		exit 1; }; \
+	echo "** Installing desktop icon for '$(USER)' in '$$desk' **"; \
+	install -m755 -t "$$desk" "$(DESKTOP_LAUNCHER)"
 
 %.desktop: %.desktop.in conf.sed
 	sed -f conf.sed <$< >$@.tmp
